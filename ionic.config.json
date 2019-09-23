@@ -1,6 +1,8 @@
 {
   "name": "sendGo",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular",
   "pro_id": "918245b1"
 }

@@ -1,15 +1,28 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <!--<ion-title>Send Go</ion-title>-->
-  </ion-toolbar>
-</ion-header>
-
 <ion-content padding>
-  <ion-button expand="block" (click)="loginFb()">Login Facebook</ion-button>
 
-  <img [src]="user.img" alt="">
-  <p>{{userdata}}</p>
-  <p>{{accauntsdata}}</p>
+
+
+
+
+
+  <div class="login-box">
+
+    <h4 class="login-box__title">Sing in with</h4>
+
+    <button class="loginBtn loginBtn--facebook" (click)="loginFb()">
+      Login with Facebook
+    </button>
+
+    <!--<button class="loginBtn loginBtn&#45;&#45;google" (click)="getFacebookProfile('EAAgn6o2490oBAKiZB6U8bM1RLrM6cUXpz8ZASz2hVHqHQjW7Fn2lGafOTTZC3EIooLPnfXa1aPzghSJZADibZAiMXxjE5bXCSJi7qRZC9wL79xAw5i8RpAqRn2z5QXg7x7joopZCq6dDZAnfv0XnjmdAFD2aBx1NouNiiDCDoJZB1LUMbmmueNW8qZBXQGcoxnojsZD')">-->
+      <!--Login with Google-->
+    <!--</button>-->
+  </div>
+
+
+
+  <!--<img [src]="user.img" alt="">-->
+  <!--<p>{{userdata}}</p>-->
+  <!--<p>{{accauntsdata}}</p>-->
 </ion-content>
 
 

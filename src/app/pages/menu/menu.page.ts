@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterEvent } from '@angular/router';
+import {SessionService} from '../../shared/services/session-service';
 
 @Component({
   selector: 'app-menu',
@@ -20,7 +21,7 @@ export class MenuPage implements OnInit {
     }
   ];
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private sessionService: SessionService ) {
     this.router.events.subscribe((event: RouterEvent) => {
       if (event && event.url) {
         this.selectedPath = event.url;
@@ -28,8 +29,10 @@ export class MenuPage implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit() {}
 
+  logOut() {
+    this.sessionService.logout();
   }
 
 }

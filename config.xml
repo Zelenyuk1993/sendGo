@@ -99,11 +99,13 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
-    <plugin name="cordova-plugin-facebook4" spec="6.0.0">
+    <plugin name="cordova-plugin-nativestorage" spec="2.3.2" />
+    <plugin name="cordova-plugin-facebook4" spec="4.2.1">
         <variable name="APP_ID" value="2295688167225162" />
         <variable name="APP_NAME" value="SendGo" />
+        <variable name="FACEBOOK_HYBRID_APP_EVENTS" value="false" />
+        <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.40.0" />
     </plugin>
-    <plugin name="cordova-plugin-nativestorage" spec="2.3.2" />
     <engine name="ios" spec="4.5.5" />
     <engine name="android" spec="^7.1.4" />
 </widget>

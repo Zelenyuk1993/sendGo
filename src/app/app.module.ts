@@ -11,6 +11,10 @@ import { AppRoutingModule } from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import { Facebook } from '@ionic-native/facebook/ngx';
 import {NativeStorage} from '@ionic-native/native-storage/ngx';
+import { StorageModule } from '@ngx-pwa/local-storage';
+import {SessionService} from './shared/services/session-service';
+import {FacebookService} from './shared/services/facebook-service';
+import {AuthGuard} from './shared/guards/auth.guard';
 
 
 @NgModule({
@@ -19,12 +23,16 @@ import {NativeStorage} from '@ionic-native/native-storage/ngx';
   imports: [BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule],
+    HttpClientModule,
+    StorageModule.forRoot({ IDBNoWrap: true })],
   providers: [
     Facebook,
     StatusBar,
     NativeStorage,
     SplashScreen,
+    SessionService,
+    FacebookService,
+    AuthGuard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

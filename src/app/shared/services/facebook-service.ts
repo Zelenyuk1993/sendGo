@@ -7,10 +7,11 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {UserModel} from '../models/user.model';
 import {FacebookAccountModel} from '../models/facebook-account.model';
+declare var FB: any;
 
 @Injectable()
 export class FacebookService {
-  // static readonly APP_KEY = '2295688167225162';
+  static readonly APP_KEY = '2295688167225162';
 
   constructor(
       private httpClient: HttpClient,
@@ -58,7 +59,6 @@ export class FacebookService {
   //   return new Observable(observer => {
   //     FB.login((response: FacebookLoginResponse) => {
   //       if (response.status === 'connected') {
-  //         this.session = response;
   //         this.sessionService.setSession(response);
   //         observer.next(true);
   //         observer.complete();

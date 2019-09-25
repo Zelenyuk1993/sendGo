@@ -9,37 +9,13 @@ export class SessionService {
   public sessionFacebook$ = new ReplaySubject<FacebookLoginResponse>(1);
   public sessionAuthToken: string;
 
-  // public updatedUser$ = new Subject<User>();
-
-  // public user$ = this.session$
-  //   .filter(session => session !== null)
-  //   .flatMap(() => this.usersService.getUser("me"))
-  //   .merge(this.updatedUser$)
-  //   .shareReplay(1);
-  // public reloadProfile$ = new Subject();
-
-  // public updatedProfile$ = new Subject<Profile>();
-
-  // public profile$ = this.distinctUser$
-  //   .merge(this.reloadProfile$.flatMap(() => this.distinctUser$))
-  //   .flatMap(user => this.userProfileService.getUserProfile(user.id))
-  //   .catch(e => {
-  //     if (e.status === 404) {
-  //       return this.userProfileService.createUserProfile("me");
-  //     }
-  //
-  //     throw e;
-  //   })
-  //   .merge(this.updatedProfile$)
-  //   .shareReplay(1);
-
   constructor(
       private storage: StorageMap,
   ) {
     this.storage
       .get(SessionService.STORAGE_SESSION_KEY_FACEBOOK)
       .subscribe( (session: FacebookLoginResponse) => {
-        this.sessionAuthToken = session.authResponse.accessToken;
+        this.sessionAuthToken = session ? session.authResponse.accessToken : null;
         this.sessionFacebook$.next(session);
       });
   }
@@ -49,16 +25,16 @@ export class SessionService {
   }
 
   public getSessionAuthToken() {
-      return  this.sessionAuthToken;
+      return this.sessionAuthToken;
   }
 
   public setSession(session?: FacebookLoginResponse) {
     if (session === null) {
       this.storage.delete(SessionService.STORAGE_SESSION_KEY_FACEBOOK).subscribe(() => {});
     } else {
+      this.sessionAuthToken = session.authResponse.accessToken;
       this.storage.set( SessionService.STORAGE_SESSION_KEY_FACEBOOK, session).subscribe(() => {});
     }
     this.sessionFacebook$.next(session);
-    // return this.session$.filter(newSession => newSession === session).take(1);
   }
 }

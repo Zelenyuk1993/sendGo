@@ -1,3 +1,22 @@
 .active-item {
-  border-left: 8px solid var(--ion-color-primary);
+  border-left: 8px solid var(--ion-color-light-shade);
 }
+:host {
+  ion-content {
+    --background: linear-gradient(135deg, var(--ion-color-dark), var(--ion-color-primary));
+  }
+
+  ion-list {
+    &.list-md {
+      padding: 0;
+    }
+  }
+}
+
+
+.logout {
+  font-size: .8rem;
+  float: right;
+  margin-top: 10px;
+}
+

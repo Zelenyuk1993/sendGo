@@ -11,17 +11,17 @@ const routes: Routes = [
     component: MenuPage,
     children: [
       {
-        path: 'first',
-        loadChildren: '../first-with-tabs/first-with-tabs.module#FirstWithTabsPageModule'
+        path: 'posts',
+        loadChildren: '../posts/posts.module#PostsPageModule'
       },
-      {
-        path: 'second',
-        loadChildren: '../second/second.module#SecondPageModule'
-      },
-      {
-        path: 'second/details',
-        loadChildren: '../details/details.module#DetailsPageModule'
-      }
+      // {
+      //   path: 'first',
+      //   loadChildren: '../first-with-tabs/first-with-tabs.module#FirstWithTabsPageModule'
+      // },
+      // {
+      //   path: 'second/details',
+      //   loadChildren: '../details/details.module#DetailsPageModule'
+      // }
     ]
   }
 ];

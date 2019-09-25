@@ -5,12 +5,12 @@ import {SessionService} from './session-service';
 import {Facebook, FacebookLoginResponse} from '@ionic-native/facebook/ngx';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-declare var FB: any;
+import {UserModel} from '../models/user.model';
+import {FacebookAccountModel} from '../models/facebook-account.model';
 
 @Injectable()
 export class FacebookService {
-  session: FacebookLoginResponse;
-  static readonly APP_KEY = '2295688167225162';
+  // static readonly APP_KEY = '2295688167225162';
 
   constructor(
       private httpClient: HttpClient,
@@ -19,28 +19,44 @@ export class FacebookService {
       private sessionService: SessionService,
   ) {
 
-    (window as any).fbAsyncInit = response => {
-      FB.init({
-        appId      : FacebookService.APP_KEY,
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v4.0'
+    // (window as any).fbAsyncInit = response => {
+    //   FB.init({
+    //     appId      : FacebookService.APP_KEY,
+    //     cookie     : true,
+    //     xfbml      : true,
+    //     version    : 'v4.0'
+    //   });
+    //   FB.AppEvents.logPageView();
+    // };
+    //
+    // (((d, s, id) => {
+    //   let js, fjs = d.getElementsByTagName(s)[0];
+    //   if (d.getElementById(id)) {return; }
+    //   js = d.createElement(s); js.id = id;
+    //   js.src = 'https://connect.facebook.net/en_US/sdk.js';
+    //   fjs.parentNode.insertBefore(js, fjs);
+    // })(document, 'script', 'facebook-jssdk'));
+  }
+  public facebookLogin() {
+    return new Observable(observer => {
+      this.facebook.login(['email']).then((response: FacebookLoginResponse) => {
+        if (response.status === 'connected') {
+          this.sessionService.setSession(response);
+          observer.next(true);
+          observer.complete();
+        } else {
+          observer.next(false);
+          observer.complete();
+        }
+      }, (error) => {
+        console.log(error);
       });
-      FB.AppEvents.logPageView();
-    };
-
-    (((d, s, id) => {
-      let js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {return; }
-      js = d.createElement(s); js.id = id;
-      js.src = 'https://connect.facebook.net/en_US/sdk.js';
-      fjs.parentNode.insertBefore(js, fjs);
-    })(document, 'script', 'facebook-jssdk'));
- }
+    });
+  }
 
   // public facebookLogin() {
   //   return new Observable(observer => {
-  //     this.facebook.login(['email']).then((response: FacebookLoginResponse) => {
+  //     FB.login((response: FacebookLoginResponse) => {
   //       if (response.status === 'connected') {
   //         this.session = response;
   //         this.sessionService.setSession(response);
@@ -50,37 +66,17 @@ export class FacebookService {
   //         observer.next(false);
   //         observer.complete();
   //       }
-  //     }, (error) => {
-  //       console.log(error);
   //     });
   //   });
   // }
 
-  public facebookLogin() {
-    return new Observable(observer => {
-      FB.login((response: FacebookLoginResponse) => {
-        if (response.status === 'connected') {
-          this.session = response;
-          this.sessionService.setSession(response);
-          observer.next(true);
-          observer.complete();
-        } else {
-          observer.next(false);
-          observer.complete();
-        }
-      });
-    });
+  public getFacebookProfile(): Observable<UserModel> {
+    const url = `https://graph.facebook.com/me/?fields=id,first_name,last_name,email,picture{url}&access_token=${this.sessionService.getSessionAuthToken()}`;
+    return this.httpClient.get(url).pipe(map(response => UserModel.fromResponse(response)));
   }
 
-  public getFacebookProfile(accessToken: string): Observable<any> {
-    const url = `https://graph.facebook.com/me/?fields=id,first_name,last_name,email,picture{url}&access_token=${accessToken}`;
-    return this.httpClient.get(url).pipe(map(response => {
-      return response;
-    }));
-  }
-
-  public getFacebookAccountsPage(accessToken: string): Observable<any> {
-      const url = `https://graph.facebook.com/me/accounts?fields=id,name,access_token,page_token,about,bio,picture{url}&access_token=${accessToken}`;
+  public getFacebookAccountsPage(): Observable<FacebookAccountModel[]> {
+      const url = `https://graph.facebook.com/me/accounts?fields=id,name,access_token,page_token,about,bio,picture{url}&access_token=${this.sessionService.getSessionAuthToken()}`;
       return this.httpClient.get(url).pipe(map( (response: {data: Array<any>, paging: any})  => {
       return response.data;
     }));

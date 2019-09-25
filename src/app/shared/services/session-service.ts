@@ -7,6 +7,7 @@ import {FacebookLoginResponse} from '@ionic-native/facebook/ngx';
 export class SessionService {
   static readonly STORAGE_SESSION_KEY_FACEBOOK = 'session_facebook';
   public sessionFacebook$ = new ReplaySubject<FacebookLoginResponse>(1);
+  public sessionAuthToken: string;
 
   // public updatedUser$ = new Subject<User>();
 
@@ -38,12 +39,17 @@ export class SessionService {
     this.storage
       .get(SessionService.STORAGE_SESSION_KEY_FACEBOOK)
       .subscribe( (session: FacebookLoginResponse) => {
+        this.sessionAuthToken = session.authResponse.accessToken;
         this.sessionFacebook$.next(session);
       });
   }
 
   logout() {
     return this.setSession(null);
+  }
+
+  public getSessionAuthToken() {
+      return  this.sessionAuthToken;
   }
 
   public setSession(session?: FacebookLoginResponse) {

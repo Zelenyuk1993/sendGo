@@ -7,17 +7,46 @@
   </ion-toolbar>
 </ion-header>
 
-
-
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let accounts of facebookAccountArray">
-      <ion-avatar item-start>
-        <img [src]="accounts.pictureUrl">
-      </ion-avatar>
-      <h3>{{accounts.name}}</h3>
-    </ion-item>
-  </ion-list>
+         <div class="flex-start accounts-list-box">
+             <ion-avatar  *ngFor="let account of facebookAccountArray" class="accounts-list-box__account-item" (click)="changeAccountStatus(account)">
+                 <img [src]="account.pictureUrl" [ngClass]="account.statusSelect ? 'accounts-list-box__account-item__account-item-active' : ''">
+                 <ion-icon name="logo-facebook" class="accounts-list-box__account-item-icon-facebook"></ion-icon>
+             </ion-avatar>
+         </div>
+        <ion-segment (ionChange)="segmentChanged($event)" class="segment-selector" [(ngModel)]="selectedSegment">
+            <ion-segment-button value="past-posts" >
+                <ion-label>Past posts</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="future-posts">
+                <ion-label>Future posts</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+
+
+
+    <ion-card  *ngFor="let post of facebookPostArray" >
+        <ion-item class="post-card">
+             <ion-avatar class="post-card__account-avatar" slot="start">
+                    <img [src]="facebookAccountArray.length ? facebookAccountArray[0].pictureUrl : null">
+                    <ion-icon name="logo-facebook" class="post-card__account-avatar-icon-facebook"></ion-icon>
+                </ion-avatar>
+
+            <div>
+                <ion-label>{{post.fromName}}</ion-label>
+                <ion-card-subtitle>{{post.createdTime | date}}</ion-card-subtitle>
+            </div>
+
+                <ion-button fill="outline" slot="end">View</ion-button>
+        </ion-item>
+
+        <ion-card-content >
+          <ion-text *ngIf="post.message">{{post.message}}</ion-text>
+            <img  *ngIf="post.fullPicture" [src]="post.fullPicture"/>
+
+        </ion-card-content>
+    </ion-card>
+
 </ion-content>
 
 

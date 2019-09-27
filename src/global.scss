@@ -24,6 +24,7 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+@import "theme/_flex.scss";
 
 
 ion-item {
@@ -160,46 +161,6 @@ ion-card {
       }
       &:last-of-type {
         border-radius: 0 2px 2px 0;
-      }
-    }
-  }
-
-  .auth-content {
-    margin: 0 5%;
-
-    .logo {
-      width: 60px;
-      height: 60px;
-      margin: 20px auto 8px;
-      border-radius: 10%;
-      background: url("/assets/img/ionic4start-ico.png") no-repeat;
-      background-size: 100%;
-    }
-
-    .list-form {
-      padding: 0;
-      margin-bottom: 0;
-
-      ion-item {
-        background: none;
-        padding: 0;
-
-        &:first-child {
-          border-top: none;
-        }
-
-        &:after {
-          display: none;
-        }
-
-        ion-label {
-          font-size: 1em;
-          color: var(--ion-color-light);
-        }
-
-        input {
-          color: var(--ion-color-light);
-        }
       }
     }
   }

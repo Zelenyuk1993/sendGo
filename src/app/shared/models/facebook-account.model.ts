@@ -3,6 +3,7 @@ export class FacebookAccountModel {
   name: string;
   accessToken: string;
   pageToken: string;
+  statusSelect?: boolean;
   pictureUrl?: string;
 
   static fromResponse(response: any): FacebookAccountModel {
@@ -11,6 +12,7 @@ export class FacebookAccountModel {
       name: response.name,
       accessToken: response.access_token,
       pageToken: response.page_token,
+      statusSelect: false,
       pictureUrl: response.picture.data.url,
     });
   }
@@ -21,6 +23,7 @@ export class FacebookAccountModel {
       name: this.name,
       accessToken: this.accessToken,
       pageToken: this.pageToken,
+      statusSelect: this.statusSelect,
       pictureUrl: this.pictureUrl,
     });
   }

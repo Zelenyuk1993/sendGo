@@ -1,0 +1,30 @@
+.flex-center{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-column{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+}
+
+
+.flex-between{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.flex-end{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.flex-start{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}

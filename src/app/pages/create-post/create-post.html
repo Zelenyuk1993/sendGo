@@ -12,12 +12,33 @@
 
 
   <ion-card >
-    <ion-card-content>
+    <ion-card-content class="create-post-card">
         <ion-item>
-          <ion-textarea inputmode="text" auto-grow="true" placeholder="Write something..."></ion-textarea>
+          <ion-textarea inputmode="text" [(ngModel)]="inputText" auto-grow="true" placeholder="Write something..."></ion-textarea>
         </ion-item>
 
+
+        <img [src]="imgURL" *ngIf="imgURL" class="image-preview">
+
+        <div class="flex-between">
+            <div>
+                <ion-icon (click)="uploadFile($event)" name="camera" class="create-post-card__attach-icon"></ion-icon>
+                <input [hidden]=true id="fileselect" type="file" accept='image/*' #fileInput (change)="addToQueue()" />
+            </div>
+
+            <div class="create-post-card__send-icon" [class.create-post-card__send-icon--active]="(inputText?.length && facebookAccountArray.length)">
+                <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg">
+
+                    <g transform="translate(-332.000000, -412.000000)" fill="#626587" opacity="0.3">
+                        <polygon points="352 422 332 432 337.185185 422 332 412"></polygon>
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+
     </ion-card-content>
+
   </ion-card>
 
 </ion-content>

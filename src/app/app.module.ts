@@ -15,6 +15,7 @@ import { StorageModule } from '@ngx-pwa/local-storage';
 import {SessionService} from './shared/services/session-service';
 import {FacebookService} from './shared/services/facebook-service';
 import {AuthGuard} from './shared/guards/auth.guard';
+import {ToastService} from './shared/services/toast-service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,6 +33,7 @@ import {AuthGuard} from './shared/guards/auth.guard';
     SessionService,
     FacebookService,
     AuthGuard,
+    ToastService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

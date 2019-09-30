@@ -1,0 +1,51 @@
+
+
+.create-post-card {
+  padding: 5px;
+
+
+  &__attach-icon{
+    font-size: 24px;
+    color: grey;
+    padding: 10px;
+
+    &:hover{
+      color: var(--ion-color-facebook);
+    }
+  }
+
+
+  .image-preview {
+    margin: auto;
+    padding: 10px;
+  }
+
+  &__send-icon {
+    //position: absolute;
+    //padding: 20px 15px;
+    //right: 0;
+    //top: 0;
+    padding-right: 10px;
+
+    svg {
+      transform-origin: 5px 50%;
+      transition: 0.2s transform;
+
+      g {
+        transition: 0.2s all;
+      }
+    }
+
+    &--active {
+      svg {
+        transform: rotate(-15deg);
+
+        g {
+          fill:  var(--ion-color-facebook) !important;
+          opacity: 1 !important;
+        }
+      }
+    }
+  }
+
+}

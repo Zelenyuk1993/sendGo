@@ -184,3 +184,25 @@ ion-menu {
     margin-bottom: -2px;
   }
 }
+
+.toast-scheme {
+  background: rgba(74, 74, 74, 0.3) !important;
+  color: #110A3B!important ;
+
+  .toast-message {
+    background: #fffcfc!important;
+    border-radius: 10px!important;
+  }
+  .toast-container {
+    background: white !important ;
+    color: #110A3B!important ;
+  }
+  .toast-md {
+    background: white !important ;
+    color: #110A3B!important ;
+  }
+  .ion-toast{
+    background: white !important ;
+    color: #110A3B!important ;
+  }
+}

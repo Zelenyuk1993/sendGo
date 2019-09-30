@@ -14,6 +14,10 @@ const routes: Routes = [
         path: 'posts',
         loadChildren: '../posts/posts.module#PostsPageModule'
       },
+      {
+        path: 'create-post',
+        loadChildren: '../create-post/create-post.module#CreatePostModule'
+      },
       // {
       //   path: 'first',
       //   loadChildren: '../first-with-tabs/first-with-tabs.module#FirstWithTabsPageModule'

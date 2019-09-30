@@ -16,7 +16,6 @@ import {SessionService} from './shared/services/session-service';
 import {FacebookService} from './shared/services/facebook-service';
 import {AuthGuard} from './shared/guards/auth.guard';
 
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],

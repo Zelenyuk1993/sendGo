@@ -8,12 +8,7 @@
 </ion-header>
 
 <ion-content>
-         <div class="flex-start accounts-list-box">
-             <ion-avatar  *ngFor="let account of facebookAccountArray" class="accounts-list-box__account-item" (click)="changeAccountStatus(account)">
-                 <img [src]="account.pictureUrl" [ngClass]="account.statusSelect ? 'accounts-list-box__account-item__account-item-active' : ''">
-                 <ion-icon name="logo-facebook" class="accounts-list-box__account-item-icon-facebook"></ion-icon>
-             </ion-avatar>
-         </div>
+        <app-account-list (changeAccountStatusEmit)="changeAccountStatus($event)"></app-account-list>
         <ion-segment (ionChange)="segmentChanged($event)" class="segment-selector" [(ngModel)]="selectedSegment">
             <ion-segment-button value="past-posts" >
                 <ion-label>Past posts</ion-label>
@@ -23,29 +18,25 @@
             </ion-segment-button>
         </ion-segment>
 
-
-
-    <ion-card  *ngFor="let post of facebookPostArray" >
-        <ion-item class="post-card">
-             <ion-avatar class="post-card__account-avatar" slot="start">
-                    <img [src]="facebookAccountArray.length ? facebookAccountArray[0].pictureUrl : null">
-                    <ion-icon name="logo-facebook" class="post-card__account-avatar-icon-facebook"></ion-icon>
-                </ion-avatar>
-
+    <ion-progress-bar type="indeterminate" *ngIf="!isLoaded"></ion-progress-bar>
+    <div  *ngFor="let post of sortPostArrayByData" class="post-card">
+        <div class="post-card__header">
+            <ion-avatar class="post-card__header__account-avatar" slot="start">
+                    <img [src]="post.accountPictureUrl ?  post.accountPictureUrl : null">
+                <ion-icon name="logo-facebook" class="post-card__header__account-avatar-icon-facebook"></ion-icon>
+            </ion-avatar>
             <div>
                 <ion-label>{{post.fromName}}</ion-label>
-                <ion-card-subtitle>{{post.createdTime | date}}</ion-card-subtitle>
+                <ion-card-subtitle>{{post.createdTime | date: 'MM/dd/yyyy hh:mm a'}}</ion-card-subtitle>
             </div>
-
-                <ion-button fill="outline" slot="end">View</ion-button>
-        </ion-item>
-
-        <ion-card-content >
-          <ion-text *ngIf="post.message">{{post.message}}</ion-text>
+            <ion-icon ios="ios-more" md="md-more" class="post-card__header__more-btn"></ion-icon>
+        </div>
+        <div class="post-card__body">
+            <ion-text *ngIf="post.message">{{post.message}}</ion-text>
             <img  *ngIf="post.fullPicture" [src]="post.fullPicture"/>
+        </div>
+    </div>
 
-        </ion-card-content>
-    </ion-card>
 
 </ion-content>
 

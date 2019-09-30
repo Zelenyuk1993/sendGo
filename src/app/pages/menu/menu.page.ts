@@ -14,10 +14,14 @@ export class MenuPage  {
   public selectedPath = '';
   public pages = [
     {
-      title: 'Facebook Posts',
+      title: 'Posts',
       url: '/menu/posts',
       icon: 'paper'
-
+    },
+    {
+      title: 'Create Posts',
+      url: '/menu/create-post',
+      icon: 'add-circle'
     }
   ];
 

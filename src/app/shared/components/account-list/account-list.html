@@ -1,0 +1,9 @@
+
+<ion-progress-bar type="indeterminate" *ngIf="!isLoaded"></ion-progress-bar>
+<div *ngIf="isLoaded" class="flex-start accounts-list-box">
+    <ion-avatar  *ngFor="let account of facebookAccountArray" class="accounts-list-box__account-item" (click)="changeAccountStatus(account)">
+        <img [src]="account.pictureUrl" [ngClass]="account.statusSelect ? 'accounts-list-box__account-item__account-item-active' : ''">
+        <ion-icon name="logo-facebook" class="accounts-list-box__account-item-icon-facebook"></ion-icon>
+    </ion-avatar>
+</div>
+

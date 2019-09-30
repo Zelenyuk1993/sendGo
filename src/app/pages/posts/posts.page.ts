@@ -10,36 +10,32 @@ import {FacebookPostModel} from '../../shared/models/facebook-post.model';
 })
 export class PostsPage implements OnInit {
   public selectedSegment  = 'past-posts';
-  public facebookAccountArray: FacebookAccountModel[] = [];
   public facebookPostArray: FacebookPostModel[] = [];
-
+  public isLoaded = true;
   constructor( private facebookService: FacebookService) { }
 
-  ngOnInit() {
-    this.getFacebookAccountsPage();
-  }
-
-  private getFacebookAccountsPage() {
-    this.facebookService.getFacebookAccountsPage().subscribe(result => {
-      this.facebookAccountArray = result.map( account => FacebookAccountModel.fromResponse(account));
-      console.log( this.facebookAccountArray );
-    });
-  }
-  private getFacebookFeedsByAccountId(accountId: number) {
-    this.facebookService.getFacebookFeeds(accountId).subscribe(result => {
+  ngOnInit() {}
+  private getFacebookFeedsByAccountId(account: FacebookAccountModel) {
+    this.isLoaded = false;
+    this.facebookService.getFacebookFeeds(account.id).subscribe(result => {
       if (!this.facebookPostArray.length) {
-        this.facebookPostArray = result.map( post => FacebookPostModel.fromResponse(post));
-        console.log( this.facebookPostArray );
+        this.facebookPostArray = result.map( post => {
+         post.accountPictureUrl = account.pictureUrl;
+         return FacebookPostModel.fromResponse(post);
+        });
+        this.isLoaded = true;
       } else  {
-        this.facebookPostArray.push(...result.map( post => FacebookPostModel.fromResponse(post)));
+        this.facebookPostArray.push(...result.map( post => {
+          post.accountPictureUrl = account.pictureUrl;
+          return FacebookPostModel.fromResponse(post);
+        }));
+        this.isLoaded = true;
       }
     });
   }
-
   changeAccountStatus(account: FacebookAccountModel) {
-    account.statusSelect = !account.statusSelect;
     if (account.statusSelect) {
-      this.getFacebookFeedsByAccountId(account.id);
+      this.getFacebookFeedsByAccountId(account);
     } else  {
       this.facebookPostArray = this.facebookPostArray.filter((obj) => {
         return obj.fromId !== account.id;
@@ -47,6 +43,12 @@ export class PostsPage implements OnInit {
     }
   }
 
+  get sortPostArrayByData() {
+    return this.facebookPostArray.sort((a: any, b: any) => {
+      // @ts-ignore
+      return new Date(b.createdTime) - new Date(a.createdTime);
+    });
+  }
   segmentChanged(event) {
     console.log(event);
   }

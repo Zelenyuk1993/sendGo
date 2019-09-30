@@ -1,14 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import {FivethreeCoreModule} from '@fivethree/core';
+import {AccountList} from './components/account-list/account-list';
+import {IonicModule} from '@ionic/angular';
 
 @NgModule({
   imports: [
+    IonicModule,
     CommonModule,
   ],
-  exports: [
+
+  declarations: [
+    AccountList
   ],
-  declarations: []
+  exports: [
+    AccountList
+
+  ]
 })
 export class SharedModule {}

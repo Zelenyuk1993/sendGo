@@ -1,36 +1,19 @@
-.accounts-list-box {
-  padding: 5px 5px 10px 5px;
-  overflow-x: auto;
-  border-bottom: 1px solid #c5c5c5;
-  box-shadow: 0 5px 0 #e2e2e2;
-
-  &__account-item {
-    margin: 0 5px 0 5px;
-    height: 50px;
-    width: 50px;
-    position: relative;
-
-    &__account-item-active {
-      border: solid 3px var(--ion-color-facebook);;
-      -moz-box-shadow: 0 8px 6px -6px var(--ion-color-facebook);;
-      box-shadow: 0 8px 10px -8px var(--ion-color-facebook);;
-
-    }
-  }
-
-  &__account-item-icon-facebook {
-    color: var(--ion-color-facebook);
-    font-size: 16px;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background: white;
-  }
-}
-
-
-
 .post-card {
+
+  border-bottom: 8px solid #c5c5c5;
+  box-shadow: 0 2px 0 #e2e2e2;
+  padding: 10px 10px 5px 10px;
+
+
+&__header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px solid #e0d9d9;
+  padding-bottom: 5px;
+  /* margin-left: -10px; */
+  margin-right: -10px;
+
 
   &__account-avatar {
     margin: 0 5px 0 5px;
@@ -47,7 +30,30 @@
     right: 0;
     background: white;
   }
+
+  &__more-btn{
+    font-size: 24px;
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+  }
+
 }
+
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 10px;
+    img{
+      margin-top: 10px;
+    }
+
+  }
+}
+
+
 
 
 .segment-selector{

@@ -7,6 +7,7 @@ export class FacebookPostModel {
   statusSelect?: boolean;
   fullPicture?: string;
   attachments?: Attachments;
+  accountPictureUrl?: string;
 
   static fromResponse(response: any): FacebookPostModel {
     return Object.assign(new FacebookPostModel(), {
@@ -18,6 +19,7 @@ export class FacebookPostModel {
       statusSelect: false,
       fullPicture: response.full_picture ? response.full_picture : null,
       attachments:  response.attachments ? Attachments.fromResponse(response.attachments) : null,
+      accountPictureUrl:  response.accountPictureUrl,
     });
   }
 
@@ -30,6 +32,7 @@ export class FacebookPostModel {
       fromId: this.fromId,
       fullPicture: this.fullPicture,
       attachments: this.attachments ? this.attachments.clone() : null,
+      accountPictureUrl:  this.accountPictureUrl,
 
     });
   }

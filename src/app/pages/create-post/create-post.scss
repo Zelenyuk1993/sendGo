@@ -14,6 +14,16 @@
     }
   }
 
+  &__remove-icon{
+    font-size: 24px;
+    color: grey;
+    padding: 10px;
+
+    &:hover{
+      color: var(--ion-color-facebook);
+    }
+  }
+
 
   .image-preview {
     margin: auto;

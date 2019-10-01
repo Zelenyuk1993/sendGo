@@ -13,9 +13,42 @@
 
   <ion-card >
     <ion-card-content class="create-post-card">
+
+
         <ion-item>
           <ion-textarea inputmode="text" [(ngModel)]="inputText" auto-grow="true" placeholder="Write something..."></ion-textarea>
         </ion-item>
+
+
+        <ion-list>
+            <ion-item>
+                <ion-label>Send Link</ion-label>
+                <ion-toggle [(ngModel)]="useLink" (ngModelChange)="inputLink = ''"></ion-toggle>
+            </ion-item>
+
+            <ion-item >
+                <ion-label>Schedule</ion-label>
+                <ion-toggle [(ngModel)]="useSchedule" (ngModelChange)="inputSchedule = ''"></ion-toggle>
+            </ion-item>
+        </ion-list>
+
+
+
+        <ion-list>
+            <ion-item *ngIf="useLink">
+                <ion-label>Link:</ion-label>
+                <ion-input [(ngModel)]="inputLink" clear-input></ion-input>
+            </ion-item>
+
+            <ion-item *ngIf="useSchedule">
+                <ion-label>Post Date:</ion-label>
+                <ion-datetime displayFormat="MMM D YYYY H:mm" [min]="minDataTime" [(ngModel)]="inputSchedule" (click)="initDateTimeNow()"></ion-datetime>
+            </ion-item>
+
+        </ion-list>
+
+
+
 
 
         <img [src]="imgURL" *ngIf="imgURL" class="image-preview">
@@ -24,9 +57,11 @@
             <div>
                 <ion-icon (click)="uploadFile($event)" name="camera" class="create-post-card__attach-icon"></ion-icon>
                 <input [hidden]=true id="fileselect" type="file" accept='image/*' #fileInput (change)="addToQueue()" />
+
+                <ion-icon name="trash" class="create-post-card__remove-icon" *ngIf="imgURL" (click)="imgURL = null"></ion-icon>
             </div>
 
-            <div class="create-post-card__send-icon" [class.create-post-card__send-icon--active]="(inputText?.length && facebookAccountArray.length)">
+            <div class="create-post-card__send-icon" [class.create-post-card__send-icon--active]="inputText?.length || (useLink && inputLink.length)"  (click)="sendPost()">
                 <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg">
 
                     <g transform="translate(-332.000000, -412.000000)" fill="#626587" opacity="0.3">

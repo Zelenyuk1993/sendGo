@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {NavController} from '@ionic/angular';
-
 import {FacebookService} from '../../shared/services/facebook-service';
 
 @Component({

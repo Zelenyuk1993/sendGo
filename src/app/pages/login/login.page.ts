@@ -11,6 +11,7 @@ import {FacebookService} from '../../shared/services/facebook-service';
 export class LoginPage implements OnInit {
   constructor(
       private navCtrl: NavController,
+
       private facebookService: FacebookService) { }
 
   ngOnInit() {}

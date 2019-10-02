@@ -21,46 +21,28 @@ export class FacebookService {
       private sessionService: SessionService,
   ) {
 
-    // (window as any).fbAsyncInit = response => {
-    //   FB.init({
-    //     appId      : FacebookService.APP_KEY,
-    //     cookie     : true,
-    //     xfbml      : true,
-    //     version    : 'v4.0'
-    //   });
-    //   FB.AppEvents.logPageView();
-    // };
-    //
-    // (((d, s, id) => {
-    //   let js, fjs = d.getElementsByTagName(s)[0];
-    //   if (d.getElementById(id)) {return; }
-    //   js = d.createElement(s); js.id = id;
-    //   js.src = 'https://connect.facebook.net/en_US/sdk.js';
-    //   fjs.parentNode.insertBefore(js, fjs);
-    // })(document, 'script', 'facebook-jssdk'));
-  }
-  public facebookLogin() {
-    return new Observable(observer => {
-      this.facebook.login(['email']).then((response: FacebookLoginResponse) => {
-        if (response.status === 'connected') {
-          this.sessionService.setSession(response);
-          observer.next(true);
-          observer.complete();
-        } else {
-          observer.next(false);
-          observer.complete();
-        }
-      }, (error) => {
-        console.log(error);
+    (window as any).fbAsyncInit = response => {
+      FB.init({
+        appId      : FacebookService.APP_KEY,
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v4.0'
       });
-    });
+      FB.AppEvents.logPageView();
+    };
+
+    (((d, s, id) => {
+      let js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return; }
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/en_US/sdk.js';
+      fjs.parentNode.insertBefore(js, fjs);
+    })(document, 'script', 'facebook-jssdk'));
   }
-
-
-
   // public facebookLogin() {
   //   return new Observable(observer => {
-  //     FB.login((response: FacebookLoginResponse) => {
+  //     const perms = new Array('email');
+  //     this.facebook.login(perms).then((response: FacebookLoginResponse) => {
   //       if (response.status === 'connected') {
   //         this.sessionService.setSession(response);
   //         observer.next(true);
@@ -69,9 +51,26 @@ export class FacebookService {
   //         observer.next(false);
   //         observer.complete();
   //       }
+  //     }, (error) => {
+  //       console.log(error);
   //     });
   //   });
   // }
+
+  public facebookLogin() {
+    return new Observable(observer => {
+      FB.login((response: FacebookLoginResponse) => {
+        if (response.status === 'connected') {
+          this.sessionService.setSession(response);
+          observer.next(true);
+          observer.complete();
+        } else {
+          observer.next(false);
+          observer.complete();
+        }
+      });
+    });
+  }
 
   public getFacebookProfile(): Observable<UserModel> {
     const url = `https://graph.facebook.com/me/?fields=id,first_name,last_name,email,picture{url}&access_token=${this.sessionService.getSessionAuthToken()}`;

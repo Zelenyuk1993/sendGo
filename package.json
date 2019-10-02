@@ -32,7 +32,7 @@
     "cordova-android": "^7.1.4",
     "cordova-ios": "4.5.5",
     "cordova-plugin-device": "^2.0.2",
-    "cordova-plugin-facebook4": "4.2.1",
+    "cordova-plugin-facebook4": "5.0.0",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^4.1.1",
     "cordova-plugin-nativestorage": "2.3.2",
@@ -86,7 +86,7 @@
         "APP_ID": "2295688167225162",
         "APP_NAME": "SendGo",
         "FACEBOOK_HYBRID_APP_EVENTS": "false",
-        "FACEBOOK_ANDROID_SDK_VERSION": "4.40.0"
+        "FACEBOOK_ANDROID_SDK_VERSION": "5.0.2"
       }
     },
     "platforms": [
